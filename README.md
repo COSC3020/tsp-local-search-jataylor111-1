@@ -50,3 +50,34 @@ Test your new function; I've provided some basic testing code in `code.test.js`.
 What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
+
+--------------------------------------------------------------------------------------------------
+
+My runtime analysis is $\Theta(n^3)$
+
+First there is a for loop that runs to double the length of the distance matrix, this gives $\Theta(n^2)$
+
+Within that it enters a while loop that I limited with the length of the array, $\Theta(n)$
+
+Then it calls two helper functions both of which would run the entire length of the maxtrix and array respectively, $\Theta(n)$ each
+
+Put all together we get $\Theta(n^2(n + n + n)) = \Theta(3n^3) = \Theta(n^3)$
+
+For the memory complexity I have a $\Theta(n)$
+
+The main variable I use for manipulation is the array containing the cities of the distance matrix which is just an array, this is $\Theta(n)$
+
+From there it's all constant variables until I get to the 2-opt function which just makes another array, also $\Theta(n)$
+
+Final memory complexity is $\Theta(n + n) = \Theta(2n) = \Theta(n)$
+
+
+I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice
+
+
+
+
+
+
+
+
