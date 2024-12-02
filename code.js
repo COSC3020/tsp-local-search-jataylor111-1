@@ -4,7 +4,7 @@ function tsp_ls(distance_matrix) {
         return 0;
     }
 
-    // Just start with the nodes themselves, won't be ideal, doesn't have to be
+    // Just start with the nodes themselves
     let currentRoute = Object.keys(distance_matrix);
     let currentLength = routeLen(currentRoute, distance_matrix);
     // Get a max number of iterations that makes sense and can change based on the size of the matrix
