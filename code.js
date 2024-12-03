@@ -4,28 +4,29 @@ function tsp_ls(distance_matrix) {
         return 0;
     }
 
-    // Just start with the nodes themselves
+    // Just start with the nodes themselves, won't be ideal, doesn't have to be
     let currentRoute = Object.keys(distance_matrix);
     let currentLength = routeLen(currentRoute, distance_matrix);
     // Get a max number of iterations that makes sense and can change based on the size of the matrix
-    // distance_matrix.length squared seems to be what makes the most sense for both a reasonable number of iterations 
+    // distance_matrix.length squared is what makes the most sense for both a reasonable number of iterations 
     // and making sure there are enough of them
-    let maxIterations = distance_matrix.length ** 2;
+    let maxIters = distance_matrix.length ** 2;
     // console.log("Max Iterations: " + maxIterations);
 
-    for(let j = 1; j < maxIterations; j++) { // Runs for length squared, so time complexity n^2
-        // Just choose i and k randomly, odds that they're the same are low
+    for(let j = 1; j < maxIters; j++) { // Runs for length squared, so time complexity n^2
+        // Just choose i and k randomly odds that they're the same are low
         let i = Math.floor(Math.random() * distance_matrix.length);
         let k = Math.floor(Math.random() * distance_matrix.length);
         // Ensure that they aren't the same, smaller matrices are tough on the random implementation
-        // Gave it a maximum runtime cause in theory it could go infinite, using the length of the array because I'm unsure what would be a suitible 
-        // amount of iterations for this one
+        // Gave it a maximum runtime cause in theory it could go infinite
         let iters = 0
+        // console.log("Matrix length: " + distance_matrix.length);
         while(i == k && iters < distance_matrix.length) { // Could run the length of the matrix, time complexity n
             i = Math.floor(Math.random() * distance_matrix.length);
             k = Math.floor(Math.random() * distance_matrix.length);
             iters++
         }
+        // console.log("Iters: " + iters);
 
         // Perform the 2-opt swap
         let newRoute = twoOpt(currentRoute, i, k);
@@ -49,6 +50,28 @@ function routeLen(route, distanceMatrix) {
     }
     // console.log("Calculated length: " + length);
     return length;
+}
+
+// Helper function to perform the 2-opt swap using a direct approach
+function twoOpt(route, i, k) {
+    let newRoute = [];
+    
+    for (let j = 0; j < i; j++) { // At worst i is the size of the length of matrix, complexity n
+        // Keep the segment before i unchanged
+        newRoute.push(route[j]); 
+    }
+    // console.log("First for: " + newRoute);
+    for (let j = k; j >= i; j--) { // Same as above, complexity n
+        // Reverse the segment between i and k
+        newRoute.push(route[j]);
+    }
+    // console.log("Second for: " + newRoute);
+    for (let j = k + 1; j < route.length; j++) { // Uses the length of the current route, also complexity n
+        // Keep the segment after k unchanged
+        newRoute.push(route[j]); 
+    }
+    // console.log("Third for: " + newRoute);
+    return newRoute;
 }
 
 // Helper function to perform the 2-opt 
