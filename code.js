@@ -21,7 +21,7 @@ function tsp_ls(distance_matrix) {
         // Gave it a maximum runtime cause in theory it could go infinite, using the length of the array because I'm unsure what would be a suitible 
         // amount of iterations for this one
         let iters = 0
-        while(i == k || iters < distance_matrix.length) { // Could run the length of the matrix, time complexity n
+        while(i == k && iters < distance_matrix.length) { // Could run the length of the matrix, time complexity n
             i = Math.floor(Math.random() * distance_matrix.length);
             k = Math.floor(Math.random() * distance_matrix.length);
             iters++
